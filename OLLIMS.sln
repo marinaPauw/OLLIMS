@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30406.217
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OLLIMS", "OLLIMS.csproj", "{310E5A41-ECF1-482A-B65F-03F577FCAD77}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{310E5A41-ECF1-482A-B65F-03F577FCAD77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{310E5A41-ECF1-482A-B65F-03F577FCAD77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{310E5A41-ECF1-482A-B65F-03F577FCAD77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{310E5A41-ECF1-482A-B65F-03F577FCAD77}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ED9525F4-57CB-4E1E-A175-652F5D4B1877}
+	EndGlobalSection
+EndGlobal
