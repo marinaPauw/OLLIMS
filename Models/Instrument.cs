@@ -7,12 +7,10 @@ namespace OLLIMS.Models
 {
     public class Instrument
     {
-        public string Name;
-        public double MeasurementrangeBottom;
-        public double MeasurementrangeTop;
-        public string Unit;
-        public string Vendor;
-        public int VerificationSchedule;
-        public int CalibrationSchedule;
+        public string Name { get; set; }
+        public string Vendor { get; set; }
+        public int VerificationSchedule { get; set; }
+        public int CalibrationSchedule { get; set; }
+        public ICollection<InstrumentToVerificationTests> InstrumentToVerTests { get; set; }
     }
 }
