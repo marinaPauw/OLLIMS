@@ -12,6 +12,7 @@ namespace OLLIMS.Data
         public DBContext(DbContextOptions<DBContext> options) : base(options) { }
         public DbSet<Instrument> Instruments { get; set; }
         public DbSet<Result> Results { get; set; }
+        public DbSet<VerificationTest> VerificationTest { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -19,6 +20,9 @@ namespace OLLIMS.Data
                 t => new { t.ID }
             );
             modelBuilder.Entity<Result>().HasKey(
+                t => new { t.ID }
+            );
+            modelBuilder.Entity<VerificationTest>().HasKey(
                 t => new { t.ID }
             );
 
