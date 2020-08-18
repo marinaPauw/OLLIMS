@@ -14,6 +14,9 @@ namespace OLLIMS.Data
         public DbSet<Result> Results { get; set; }
         public DbSet<VerificationTest> VerificationTest { get; set; }
 
+        public DbSet<VerificationTestToResult> VerificationTestToResult { get; set; }
+        public DbSet<InstrumentToVerificationTests> InstrumentToVerificationTests { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Instrument>().HasKey(
@@ -25,7 +28,12 @@ namespace OLLIMS.Data
             modelBuilder.Entity<VerificationTest>().HasKey(
                 t => new { t.ID }
             );
-
+            modelBuilder.Entity<VerificationTestToResult>().HasKey(
+                t => new { t.ID }
+            );
+            modelBuilder.Entity<InstrumentToVerificationTests>().HasKey(
+                t => new { t.ID }
+            );
         }
     }
 }
