@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OLLIMS.Models;
+using OLLIMS.Data;
 
 namespace OLLIMS.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private DBContext _context;
+        public HomeController(ILogger<HomeController> logger, DBContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
