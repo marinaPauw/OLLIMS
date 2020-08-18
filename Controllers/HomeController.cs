@@ -34,7 +34,24 @@ namespace OLLIMS.Controllers
             return View(instruments);
         }
 
-      
+        public IActionResult Instrument(int ID)
+        {
+            var instrument = _context.Instruments.SingleOrDefault(p => p.ID == ID);
+            var vm = new InstrumentViewModel
+            {
+                Instrument = instrument
+            };
+
+            if (instrument != null)
+            {
+                return View(vm);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
         public IActionResult Privacy()
         {
             return View();
