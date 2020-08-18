@@ -7,6 +7,7 @@ namespace OLLIMS.Models
 {
     public class Result
     {
+        public int ID { get; set; }
         public DateTime RunDate { get; set; }
         public double Value { get; set; }
         public string Comment { get; set; }

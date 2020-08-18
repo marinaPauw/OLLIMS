@@ -10,14 +10,17 @@ namespace OLLIMS.Data
     public class DBContext:DbContext
     {
         public DBContext(DbContextOptions<DBContext> options) : base(options) { }
-        public DbSet<Instrument> Instrument { get; set; }
+        public DbSet<Instrument> Instruments { get; set; }
+        public DbSet<Result> Results { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Instrument>().HasKey(
                 t => new { t.ID }
             );
-
+            modelBuilder.Entity<Result>().HasKey(
+                t => new { t.ID }
+            );
 
         }
     }
