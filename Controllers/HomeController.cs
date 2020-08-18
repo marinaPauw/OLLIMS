@@ -24,7 +24,17 @@ namespace OLLIMS.Controllers
         {
             return View();
         }
+        public IActionResult Instruments()
+        {
+            var instruments = _context.Instruments.ToList();
+            if (instruments == null)
+            {
+                Console.WriteLine("There are no instruments added yet.");
+            }
+            return View(instruments);
+        }
 
+      
         public IActionResult Privacy()
         {
             return View();

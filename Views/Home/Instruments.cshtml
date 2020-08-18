@@ -1,0 +1,25 @@
+﻿
+@model List<Instrument>
+@{
+    ViewData["Title"] = "Instruments";
+}
+
+<div class="text-center">
+    <h2 class="display-4">All instruments loaded to LIMS:</h2>
+</div>
+<div class="card-columns">
+    @foreach (var item in Model)
+    {
+        <div class="card">
+              <div class="card-body">
+                <a class="card-title" asp-action="Instrument"
+                   asp-controller="Home"
+                   asp-route-id="@item.ID"
+                   >@item.Name</a>
+
+              </div>
+        </div>
+    }
+</div>
+
+
