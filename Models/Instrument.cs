@@ -7,6 +7,7 @@ namespace OLLIMS.Models
 {
     public class Instrument
     {
+        public int ID { get; set; }
         public string Name { get; set; }
         public string Vendor { get; set; }
         public int VerificationSchedule { get; set; }
