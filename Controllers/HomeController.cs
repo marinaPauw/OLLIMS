@@ -33,25 +33,33 @@ namespace OLLIMS.Controllers
             }
             return View(instruments);
         }
-
-        public IActionResult Instrument(int ID)
+        public Instrument GetInstrumentById(int ID)
         {
             var instrument = _context.Instruments.SingleOrDefault(p => p.ID == ID);
+            if (instrument == null)
+            {
+                throw new EntityNotFoundException(nameof(instrument), ID);
+            }
+            return instrument;
+        }
+        public IActionResult Instrument(int ID)
+        {
+            var instrument = GetInstrumentById(ID);
             var vm = new InstrumentViewModel
             {
                 Instrument = instrument
             };
 
-            if (instrument != null)
+            return View(vm);
+            
+        }
+        public class EntityNotFoundException : Exception
+        {
+            public EntityNotFoundException(string name, object key)
+                : base($"Entity '{name}' ({key}) was not found.")
             {
-                return View(vm);
-            }
-            else
-            {
-                return RedirectToAction("Index");
             }
         }
-
         public IActionResult Privacy()
         {
             return View();
