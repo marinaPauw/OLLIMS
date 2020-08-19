@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OLLIMS.Models;
 using OLLIMS.Data;
+using Microsoft.AspNetCore.Mvc.Filters;
+using System.Net;
 
 namespace OLLIMS.Controllers
 {
@@ -26,12 +28,33 @@ namespace OLLIMS.Controllers
         }
         public IActionResult Instruments()
         {
+            InstrumentCatalogueViewModel vm;
+            if (_context.Instruments.Local.Count() > 0)
+            {
+                var instruments = GetAllInstruments();
+                vm = new InstrumentCatalogueViewModel
+                {
+                    instruments = instruments
+                };
+            }
+            else 
+            {
+            //Create viewmodel for nothing to display yet.
+                vm = new InstrumentCatalogueViewModel
+                {
+                    instruments = new List<Instrument>()
+                };
+            }
+            return View(vm);
+        }
+        public List<Instrument> GetAllInstruments()
+        {
             var instruments = _context.Instruments.ToList();
             if (instruments == null)
             {
-                Console.WriteLine("There are no instruments added yet.");
+                throw new EntityNotFoundException("Any instrument", 0);
             }
-            return View(instruments);
+            return instruments;
         }
         public Instrument GetInstrumentById(int ID)
         {
@@ -58,6 +81,27 @@ namespace OLLIMS.Controllers
             public EntityNotFoundException(string name, object key)
                 : base($"Entity '{name}' ({key}) was not found.")
             {
+            }
+        }
+        [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+        public class ExceptionFilter : ExceptionFilterAttribute
+        {
+            public override void OnException(ExceptionContext context)
+            {
+                var statusCode = HttpStatusCode.InternalServerError;
+
+                if (context.Exception is EntityNotFoundException)
+                {
+                    statusCode = HttpStatusCode.NotFound;
+                }
+
+                context.HttpContext.Response.ContentType = "application/json";
+                context.HttpContext.Response.StatusCode = (int)statusCode;
+                context.Result = new JsonResult(new
+                {
+                    error = new[] { context.Exception.Message },
+                    stackTrace = context.Exception.StackTrace
+                });
             }
         }
         public IActionResult Privacy()

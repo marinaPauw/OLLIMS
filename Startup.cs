@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OLLIMS.Data;
 using Microsoft.EntityFrameworkCore;
+using static OLLIMS.Controllers.HomeController;
 
 namespace OLLIMS
 {
@@ -20,7 +21,7 @@ namespace OLLIMS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(options => options.Filters.Add(typeof(ExceptionFilter)));
             var connection = @"Server = (localdb)\mssqllocaldb; Database = OLLIMS;Trusted_Connection=True; ConnectRetryCount=0";
             services.AddDbContext<DBContext>(options => options.UseSqlServer(connection));
         }
