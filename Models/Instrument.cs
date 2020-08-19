@@ -13,5 +13,7 @@ namespace OLLIMS.Models
         public int VerificationSchedule { get; set; }
         public int CalibrationSchedule { get; set; }
         public ICollection<InstrumentToVerificationTests> InstrumentToVerTests { get; set; }
+
+        public LaboratoryToInstrument LaboratoryToInstrument { get; set; } //No collection here as the instrument can only physically live in one laboratory at a time.
     }
 }

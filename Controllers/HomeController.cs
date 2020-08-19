@@ -47,6 +47,57 @@ namespace OLLIMS.Controllers
             }
             return View(vm);
         }
+
+        public IActionResult Laboratories()
+        {
+            LaboratoryCatalogueViewModel vm;
+            if (_context.Laboratories.Local.Count() > 0)
+            {
+                var labs = GetAllLaboratories();
+                vm = new LaboratoryCatalogueViewModel
+                {
+                    Laboratories = labs
+                };
+            }
+            else
+            {
+                //Create viewmodel for nothing to display yet.
+                vm = new LaboratoryCatalogueViewModel
+                {
+                    Laboratories = new List<Laboratory>()
+                };
+            }
+            return View(vm);
+        }
+        public List<Laboratory> GetAllLaboratories()
+        {
+            var labs = _context.Laboratories.ToList();
+            if (labs == null)
+            {
+                throw new EntityNotFoundException("Any lab", 0);
+            }
+            return labs;
+        }
+        public Laboratory GetLabById(int ID)
+        {
+            var lab = _context.Laboratories.SingleOrDefault(p => p.ID == ID);
+            if (lab == null)
+            {
+                throw new EntityNotFoundException(nameof(lab), ID);
+            }
+            return lab;
+        }
+        public IActionResult Laboratory(int ID)
+        {
+            var lab = GetLabById(ID);
+            var vm = new LaboratoryViewModel
+            {
+                Laboratory = lab
+            };
+
+            return View(vm);
+
+        }
         public List<Instrument> GetAllInstruments()
         {
             var instruments = _context.Instruments.ToList();

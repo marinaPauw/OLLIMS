@@ -11,6 +11,8 @@ namespace OLLIMS.Data
     {
         public DBContext(DbContextOptions<DBContext> options) : base(options) { }
         public DbSet<Instrument> Instruments { get; set; }
+        public DbSet<Laboratory> Laboratories { get; set; }
+        public DbSet<LaboratoryToInstrument> LaboratoryToInstruments { get; set; }
         public DbSet<Result> Results { get; set; }
         public DbSet<VerificationTest> VerificationTest { get; set; }
 
@@ -34,6 +36,11 @@ namespace OLLIMS.Data
             modelBuilder.Entity<InstrumentToVerificationTests>().HasKey(
                 t => new { t.ID }
             );
+            modelBuilder.Entity<Laboratory>().HasKey(
+                t => new { t.ID }
+            );
+            modelBuilder.Entity<LaboratoryToInstrument>().HasOne(t => t.Instrument).WithOne(t=>t.LaboratoryToInstrument)
+            .HasForeignKey<Instrument>(t => new { t.ID });
         }
     }
 }
